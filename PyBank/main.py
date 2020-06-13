@@ -8,6 +8,7 @@ budget_data_path = os.path.join('..','Resources', 'budget_data.csv')
 #create empty lists
 months = [] 
 profit_loss = []
+monthlyChange = []
 
 #set running total to 0 to start
 profitLossRunningTotal = 0 
@@ -21,13 +22,19 @@ with open(budget_data_path, encoding="utf8") as PyBankFile:
         profit_loss.append(int(row[1]))
         profitLossRunningTotal += int(row[1])
 
+#initiate while loop to make list of monthly changes
+i = 0
+while i < len(profit_loss)-1:
+    monthlyChange.append(profit_loss[i+1]-profit_loss[i])
+    i = i + 1
+
 #set result calculations
 Total_Months = len(months) #number of records in list
-Average_Change = round((profitLossRunningTotal / Total_Months), 2) #total profit/loss divided by number of records
-Greatest_Increase = max(profit_loss) #highest value in profit/loss list
-Greatest_Decrease = min(profit_loss) #lowest value in profit/loss list
-Greatest_Increase_Index = profit_loss.index(Greatest_Increase) #index number to reference corresponding month for results
-Greatest_Decrease_Index = profit_loss.index(Greatest_Decrease)#index number to reference corresponding month for results
+Average_Change = round((sum(monthlyChange)/len(monthlyChange)),2) #takes sum of all values in monthlyChange and divides that by number of values
+Greatest_Increase = max(monthlyChange) #highest value in profit/loss list
+Greatest_Decrease = min(monthlyChange) #lowest value in profit/loss list
+Greatest_Increase_Index = monthlyChange.index(Greatest_Increase)+1 #index number to reference corresponding month for results
+Greatest_Decrease_Index = monthlyChange.index(Greatest_Decrease)+1 #index number to reference corresponding month for results
 
 #print results to terminal
 print("Financial Analysis")
@@ -35,8 +42,8 @@ print("----------------------------")
 print("Total Months: " + str(Total_Months))
 print("Total: $" + str(profitLossRunningTotal))
 print("Average Change: $" + str(Average_Change))
-print("Greatest Increase: " + months[Greatest_Increase_Index] + " $" + str(Greatest_Increase))
-print("Greatest Decrease: " + months[Greatest_Decrease_Index] + " $" + str(Greatest_Decrease))
+print("Greatest Increase: " + months[Greatest_Increase_Index] + " ($" + str(Greatest_Increase) + ")")
+print("Greatest Decrease: " + months[Greatest_Decrease_Index] + " ($" + str(Greatest_Decrease) +")")
 
 #set up text file for results
 output_file = os.path.join("..","analysis","financial_analysis.txt")
