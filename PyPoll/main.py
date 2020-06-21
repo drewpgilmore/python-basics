@@ -4,8 +4,6 @@ import csv
 pollPath = os.path.join('Resources','election_data.csv')
 output_file = os.path.join('analysis','election_results.txt')
 
-candidates = {}
-
 voterList = []
 candidates = []
 
@@ -31,7 +29,6 @@ with open(pollPath, encoding="utf8") as pollFile, open(output_file, "w") as summ
         print(f'{word}: {percentage} ({voteCount})')
         summaryFile.write(f'{word}: {percentage} ({voteCount})\n')
 
-    print(candidate_summary)
     winner = uniqueCandidates[votes.index(max(votes))]
     print(f'\nWinner: {winner}')
     summaryFile.write(f'\nWinner: {winner}')
