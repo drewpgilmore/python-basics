@@ -39,13 +39,14 @@ Greatest_Increase_Index = monthlyChange.index(Greatest_Increase)+1 #offset index
 Greatest_Decrease_Index = monthlyChange.index(Greatest_Decrease)+1 
 
 #print results to terminal
-print("Financial Analysis")
-print("----------------------------")
-print("Total Months: " + str(Total_Months))
-print("Total: $" + str(profitLossRunningTotal))
-print("Average Change: $" + str(Average_Change))
-print("Greatest Increase: " + months[Greatest_Increase_Index] + " ($" + str(Greatest_Increase) + ")")
-print("Greatest Decrease: " + months[Greatest_Decrease_Index] + " ($" + str(Greatest_Decrease) +")")
+print(f'''
+    Financial Analysis\n
+    Total Months: {str(Total_Months)}\n
+    Total: ${str(profitLossRunningTotal)}\n
+    Average Change: ${str(Average_Change)}\n 
+    Greatest Increase: {months[Greatest_Increase_Index]} (${str(Greatest_Increase)})\n
+    Greatest Decrease: {months[Greatest_Decrease_Index]} (${str(Greatest_Decrease)})
+''')
 
 #set up text file for results
 output_file = os.path.join("analysis","financial_analysis.txt")
