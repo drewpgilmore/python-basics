@@ -1,34 +1,38 @@
 import os
 import csv
 
-pollPath = os.path.join('Resources','election_data.csv')
+poll_path = os.path.join('Resources','election_data.csv')
 output_file = os.path.join('analysis','election_results.txt')
 
-voterList = []
+voter_list = []
 candidates = []
 
-with open(pollPath, encoding="utf8") as pollFile, open(output_file, "w") as summaryFile:
-    csvReader = csv.reader(pollFile, delimiter=",")
-    headers = next(csvReader)
-    for row in csvReader:
-        voterList.append(row[0])
+with open(poll_path, encoding="utf8") as poll_file, open(output_file, "w") as summary_file:
+    csv_reader = csv.reader(poll_file, delimiter=",")
+    headers = next(csv_reader)
+    for row in csv_reader:
+        voter_list.append(row[0])
         candidates.append(row[2])
 
-    print(f'Elections Results\nTotal Votes: {len(voterList)}\n\n')
-    summaryFile.write(f'Elections Results\nTotal Votes: {len(voterList)}\n\n')
+    print(f'''
+    Elections Results\n
+    Total Votes: {len(voter_list)}\n
+    ''')
+    
+    summary_file.write(f'Elections Results\nTotal Votes: {len(voter_list)}\n\n')
 
-    uniqueCandidates = list(set(candidates))
+    unique_candidates = list(set(candidates))
     votes = []
     percentages = []
 
-    for word in uniqueCandidates:       
-        voteCount = candidates.count(word)
-        votes.append(voteCount)
-        percentage = "{:.2%}".format(voteCount/len(candidates))
+    for word in unique_candidates:       
+        vote_count = candidates.count(word)
+        votes.append(vote_count)
+        percentage = "{:.2%}".format(vote_count/len(candidates))
         percentages.append(percentage)
-        print(f'{word}: {percentage} ({voteCount})')
-        summaryFile.write(f'{word}: {percentage} ({voteCount})\n')
+        print(f'{word}: {percentage} ({vote_count})')
+        summary_file.write(f'{word}: {percentage} ({vote_count})\n')
 
-    winner = uniqueCandidates[votes.index(max(votes))]
-    print(f'\nWinner: {winner}')
-    summaryFile.write(f'\nWinner: {winner}')
+    winner = unique_candidates[votes.index(max(votes))]
+    print(f'Winner: {winner}')
+    summary_file.write(f'Winner: {winner}')
