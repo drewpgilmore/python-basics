@@ -36,7 +36,7 @@ avg_change = round((sum(monthlyChange)/len(monthlyChange)),2) #takes sum of all 
 max_increase = max(monthlyChange) #highest value in monthly change list
 max_decrease = min(monthlyChange) #lowest value in monthly change list
 max_increase_index = monthlyChange.index(Greatest_Increase)+1 #offset index number to accomodate for no value corresponding to first month
-greatest_decrease_index = monthlyChange.index(Greatest_Decrease)+1 
+max_decrease_index = monthlyChange.index(Greatest_Decrease)+1 
 
 #print results to terminal
 print(f'''
@@ -44,9 +44,9 @@ print(f'''
     Total Months: {len(months)}\n
     Total: ${profitLossRunningTotal}\n
     Average Change: ${avg_change}\n 
-    Greatest Increase: {months[Greatest_Increase_Index]} (${str(Greatest_Increase)})\n
-    Greatest Decrease: {months[Greatest_Decrease_Index]} (${str(Greatest_Decrease)})
-''')
+    Greatest Increase: {months[max_increase_index]} (${str(max_increase)})\n
+    Greatest Decrease: {months[max_decrease_index]} (${str(max_decrease)})
+    ''')
 
 #set up text file for results
 output_file = os.path.join("analysis","financial_analysis.txt")
@@ -67,7 +67,7 @@ with open(output_file, "w") as datafile:
     Total Months: {str(Total_Months)} \n
     Total: ${str(profitLossRunningTotal)} \n 
     Average Change: ${str(Average_Change)} \n
-    Greatest Increase: {months[Greatest_Increase_Index]} ${str(Greatest_Increase)} \n
-    Greatest Decrease: {months[Greatest_Decrease_Index]} ${str(Greatest_Decrease)}
+    Greatest Increase: {months[max_increase_index]} ${str(max_increase)} \n
+    Greatest Decrease: {months[max_decrease_index]} ${str(max_decrease)}
     ''')
 
